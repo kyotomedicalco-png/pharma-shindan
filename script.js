@@ -107,8 +107,8 @@ function showQuestion(){
     answerArea.appendChild(button);
   });
 
-  const backButton = document.querySelector(".back-button");
-  backButton.style.display = current === 0 ? "none" : "block";
+  document.querySelector(".back-button").style.display =
+    current === 0 ? "none" : "block";
 }
 
 function goBack(){
@@ -124,33 +124,26 @@ function showResult(){
   document.getElementById("quiz-screen").classList.add("hidden");
   document.getElementById("result-screen").classList.remove("hidden");
 
-  let rank = "";
   let salary = "";
   let comment = "";
 
   if(score >= 360){
-    rank = "Aランク";
     salary = "700〜800万円";
     comment = "エリアマネージャーや複数店舗管理など、高年収求人を狙える可能性があります。";
   }else if(score >= 310){
-    rank = "B＋ランク";
     salary = "650〜750万円";
     comment = "ラウンダーや管理薬剤師として、高年収求人の対象になりやすい層です。";
   }else if(score >= 250){
-    rank = "Bランク";
     salary = "550〜700万円";
     comment = "管理薬剤師や経験豊富な薬剤師として、転職市場で一定の評価が期待できます。";
   }else if(score >= 200){
-    rank = "C＋ランク";
     salary = "500〜650万円";
     comment = "中堅薬剤師として、条件や勤務地によって年収アップを狙える可能性があります。";
   }else{
-    rank = "Cランク";
     salary = "450〜600万円";
     comment = "一般薬剤師としての市場価値があります。経験や条件次第で今後さらに上を目指せます。";
   }
 
-  document.getElementById("rank").innerText = rank;
   document.getElementById("salary").innerText = salary;
   document.getElementById("comment").innerText = comment;
 }
