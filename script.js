@@ -1,6 +1,69 @@
-const questions = [
+const prefecturesByArea = {
+  "北海道・東北": [
+    { text: "北海道", score: 30 },
+    { text: "青森県", score: 35 },
+    { text: "岩手県", score: 35 },
+    { text: "宮城県", score: 35 },
+    { text: "秋田県", score: 35 },
+    { text: "山形県", score: 35 },
+    { text: "福島県", score: 35 }
+  ],
+  "関東": [
+    { text: "東京都", score: 45 },
+    { text: "神奈川県", score: 42 },
+    { text: "埼玉県", score: 40 },
+    { text: "千葉県", score: 40 },
+    { text: "茨城県", score: 38 },
+    { text: "栃木県", score: 38 },
+    { text: "群馬県", score: 38 }
+  ],
+  "中部": [
+    { text: "新潟県", score: 36 },
+    { text: "富山県", score: 36 },
+    { text: "石川県", score: 36 },
+    { text: "福井県", score: 36 },
+    { text: "山梨県", score: 38 },
+    { text: "長野県", score: 38 },
+    { text: "岐阜県", score: 38 },
+    { text: "静岡県", score: 40 },
+    { text: "愛知県", score: 42 }
+  ],
+  "関西": [
+    { text: "京都府", score: 42 },
+    { text: "大阪府", score: 45 },
+    { text: "兵庫県", score: 42 },
+    { text: "滋賀県", score: 40 },
+    { text: "奈良県", score: 40 },
+    { text: "和歌山県", score: 38 }
+  ],
+  "中国・四国": [
+    { text: "鳥取県", score: 35 },
+    { text: "島根県", score: 35 },
+    { text: "岡山県", score: 38 },
+    { text: "広島県", score: 40 },
+    { text: "山口県", score: 36 },
+    { text: "徳島県", score: 35 },
+    { text: "香川県", score: 36 },
+    { text: "愛媛県", score: 36 },
+    { text: "高知県", score: 35 }
+  ],
+  "九州・沖縄": [
+    { text: "福岡県", score: 40 },
+    { text: "佐賀県", score: 35 },
+    { text: "長崎県", score: 35 },
+    { text: "熊本県", score: 36 },
+    { text: "大分県", score: 36 },
+    { text: "宮崎県", score: 35 },
+    { text: "鹿児島県", score: 35 },
+    { text: "沖縄県", score: 35 }
+  ]
+};
+
+const baseQuestions = [
   {
+    key: "age",
     text: "年齢を選んでください",
+    help: "現在の年齢に近いものを選択してください。",
     answers: [
       { text: "20代", score: 20 },
       { text: "30代", score: 35 },
@@ -9,7 +72,9 @@ const questions = [
     ]
   },
   {
+    key: "experience",
     text: "薬剤師としての経験年数は？",
+    help: "薬剤師として勤務した通算年数を選択してください。",
     answers: [
       { text: "1年未満", score: 10 },
       { text: "1〜3年", score: 20 },
@@ -18,33 +83,44 @@ const questions = [
     ]
   },
   {
+    key: "workplace",
     text: "現在の勤務先は？",
+    help: "もっとも近い勤務先を選択してください。",
     answers: [
       { text: "調剤薬局", score: 35 },
-      { text: "病院", score: 25 },
+      { text: "病院", score: 30 },
       { text: "ドラッグストア", score: 45 },
-      { text: "企業", score: 50 }
+      { text: "企業", score: 50 },
+      { text: "その他", score: 25 }
     ]
   },
   {
+    key: "position",
     text: "現在の役職は？",
+    help: "役職が複数ある場合は、もっとも近いものを選択してください。",
     answers: [
       { text: "一般薬剤師", score: 20 },
+      { text: "主任・リーダー", score: 35 },
       { text: "管理薬剤師", score: 55 },
       { text: "ラウンダー", score: 70 },
-      { text: "エリアマネージャー", score: 90 }
+      { text: "薬局長・店長", score: 75 },
+      { text: "エリアマネージャー", score: 90 },
+      { text: "薬剤部長", score: 95 },
+      { text: "本部職・管理職", score: 90 }
     ]
   },
   {
-    text: "勤務エリアは？",
-    answers: [
-      { text: "地方", score: 25 },
-      { text: "郊外", score: 35 },
-      { text: "都市部", score: 45 }
-    ]
+    key: "area",
+    text: "勤務希望エリアを選んでください",
+    help: "現在の勤務エリア、または転職を希望するエリアを選択してください。",
+    answers: Object.keys(prefecturesByArea).map(function(area) {
+      return { text: area, score: 0 };
+    })
   },
   {
+    key: "motivation",
     text: "転職意欲は？",
+    help: "今のお気持ちに近いものを選択してください。",
     answers: [
       { text: "今は考えていない", score: 10 },
       { text: "良い求人があれば", score: 25 },
@@ -53,7 +129,9 @@ const questions = [
     ]
   },
   {
+    key: "priority",
     text: "一番重視する条件は？",
+    help: "転職や働き方で一番重視したいものを選択してください。",
     answers: [
       { text: "年収アップ", score: 45 },
       { text: "ワークライフバランス", score: 30 },
@@ -63,17 +141,40 @@ const questions = [
   }
 ];
 
+let questions = [];
 let current = 0;
 let score = 0;
-let scoreHistory = [];
+let answerHistory = [];
+let selectedData = {
+  area: "",
+  prefecture: "",
+  position: ""
+};
 
-function startQuiz(){
+function buildQuestions() {
+  questions = JSON.parse(JSON.stringify(baseQuestions));
+}
+
+function startQuiz() {
+  buildQuestions();
+
+  current = 0;
+  score = 0;
+  answerHistory = [];
+  selectedData = {
+    area: "",
+    prefecture: "",
+    position: ""
+  };
+
   document.getElementById("start-screen").classList.add("hidden");
+  document.getElementById("result-screen").classList.add("hidden");
   document.getElementById("quiz-screen").classList.remove("hidden");
+
   showQuestion();
 }
 
-function showQuestion(){
+function showQuestion() {
   const question = questions[current];
 
   document.getElementById("progress-text").innerText =
@@ -83,25 +184,18 @@ function showQuestion(){
     ((current + 1) / questions.length * 100) + "%";
 
   document.getElementById("question-title").innerText = question.text;
+  document.getElementById("question-help").innerText = question.help || "";
 
   const answerArea = document.getElementById("answer-area");
   answerArea.innerHTML = "";
 
-  question.answers.forEach(function(answer){
+  question.answers.forEach(function(answer) {
     const button = document.createElement("button");
     button.className = "answer-button";
     button.innerText = answer.text;
 
-    button.onclick = function(){
-      score += answer.score;
-      scoreHistory.push(answer.score);
-      current++;
-
-      if(current < questions.length){
-        showQuestion();
-      }else{
-        showResult();
-      }
+    button.onclick = function() {
+      selectAnswer(question, answer);
     };
 
     answerArea.appendChild(button);
@@ -111,39 +205,153 @@ function showQuestion(){
     current === 0 ? "none" : "block";
 }
 
-function goBack(){
-  if(current > 0){
-    current--;
-    const lastScore = scoreHistory.pop();
-    score -= lastScore;
+function selectAnswer(question, answer) {
+  score += answer.score;
+
+  const historyItem = {
+    questionKey: question.key,
+    answerText: answer.text,
+    score: answer.score,
+    insertedPrefectureQuestion: false
+  };
+
+  if (question.key === "position") {
+    selectedData.position = answer.text;
+  }
+
+  if (question.key === "area") {
+    selectedData.area = answer.text;
+
+    const prefectureQuestion = {
+      key: "prefecture",
+      text: "都道府県を選んでください",
+      help: selectedData.area + "の中から、現在または希望する都道府県を選択してください。",
+      answers: prefecturesByArea[answer.text]
+    };
+
+    questions.splice(current + 1, 0, prefectureQuestion);
+    historyItem.insertedPrefectureQuestion = true;
+  }
+
+  if (question.key === "prefecture") {
+    selectedData.prefecture = answer.text;
+  }
+
+  answerHistory.push(historyItem);
+  current++;
+
+  if (current < questions.length) {
     showQuestion();
+  } else {
+    showResult();
   }
 }
 
-function showResult(){
+function goBack() {
+  if (current <= 0) return;
+
+  current--;
+
+  const last = answerHistory.pop();
+
+  if (last) {
+    score -= last.score;
+
+    if (last.questionKey === "position") {
+      selectedData.position = "";
+    }
+
+    if (last.questionKey === "prefecture") {
+      selectedData.prefecture = "";
+    }
+
+    if (last.questionKey === "area") {
+      selectedData.area = "";
+
+      if (last.insertedPrefectureQuestion) {
+        const nextQuestion = questions[current + 1];
+        if (nextQuestion && nextQuestion.key === "prefecture") {
+          questions.splice(current + 1, 1);
+        }
+      }
+    }
+  }
+
+  showQuestion();
+}
+
+function getResult(score) {
+  if (score >= 400) {
+    return {
+      salary: "750〜900万円",
+      comment: "管理職・薬剤部長・エリアマネージャーなど、高年収帯を狙える可能性があります。"
+    };
+  }
+
+  if (score >= 350) {
+    return {
+      salary: "700〜800万円",
+      comment: "管理薬剤師やラウンダー、複数店舗管理などの高年収求人を狙える可能性があります。"
+    };
+  }
+
+  if (score >= 300) {
+    return {
+      salary: "620〜750万円",
+      comment: "経験や役職を活かして、条件の良い求人を狙いやすい層です。"
+    };
+  }
+
+  if (score >= 240) {
+    return {
+      salary: "550〜680万円",
+      comment: "中堅薬剤師として、勤務地や勤務形態によって年収アップを狙える可能性があります。"
+    };
+  }
+
+  if (score >= 180) {
+    return {
+      salary: "500〜620万円",
+      comment: "一般薬剤師として一定の市場価値があります。経験や条件次第でさらに上を目指せます。"
+    };
+  }
+
+  return {
+    salary: "450〜580万円",
+    comment: "これから経験を積むことで、今後さらに市場価値を高められる可能性があります。"
+  };
+}
+
+function showResult() {
+  const result = getResult(score);
+
   document.getElementById("quiz-screen").classList.add("hidden");
   document.getElementById("result-screen").classList.remove("hidden");
 
-  let salary = "";
-  let comment = "";
+  document.getElementById("salary").innerText = result.salary;
+  document.getElementById("comment").innerText = result.comment;
 
-  if(score >= 360){
-    salary = "700〜800万円";
-    comment = "エリアマネージャーや複数店舗管理など、高年収求人を狙える可能性があります。";
-  }else if(score >= 310){
-    salary = "650〜750万円";
-    comment = "ラウンダーや管理薬剤師として、高年収求人の対象になりやすい層です。";
-  }else if(score >= 250){
-    salary = "550〜700万円";
-    comment = "管理薬剤師や経験豊富な薬剤師として、転職市場で一定の評価が期待できます。";
-  }else if(score >= 200){
-    salary = "500〜650万円";
-    comment = "中堅薬剤師として、条件や勤務地によって年収アップを狙える可能性があります。";
-  }else{
-    salary = "450〜600万円";
-    comment = "一般薬剤師としての市場価値があります。経験や条件次第で今後さらに上を目指せます。";
-  }
+  document.getElementById("summary-area").innerText =
+    selectedData.area || "未選択";
 
-  document.getElementById("salary").innerText = salary;
-  document.getElementById("comment").innerText = comment;
+  document.getElementById("summary-prefecture").innerText =
+    selectedData.prefecture || "未選択";
+
+  document.getElementById("summary-position").innerText =
+    selectedData.position || "未選択";
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+}
+
+function restartQuiz() {
+  document.getElementById("result-screen").classList.add("hidden");
+  document.getElementById("start-screen").classList.remove("hidden");
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
 }
