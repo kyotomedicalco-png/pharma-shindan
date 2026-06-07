@@ -1,171 +1,175 @@
-const questions = [
-  {
-    question:"年齢を選んでください",
-    answers:[
-      { text:"20代", score:20 },
-      { text:"30代", score:35 },
-      { text:"40代", score:45 },
-      { text:"50代以上", score:35 }
-    ]
-  },
-  {
-    question:"薬剤師としての経験年数は？",
-    answers:[
-      { text:"1年未満", score:10 },
-      { text:"1〜3年", score:20 },
-      { text:"4〜9年", score:35 },
-      { text:"10年以上", score:50 }
-    ]
-  },
-  {
-    question:"現在の勤務先は？",
-    answers:[
-      { text:"調剤薬局", score:35 },
-      { text:"病院", score:25 },
-      { text:"ドラッグストア", score:45 },
-      { text:"企業", score:50 }
-    ]
-  },
-  {
-    question:"現在の役職は？",
-    answers:[
-      { text:"一般薬剤師", score:20 },
-      { text:"管理薬剤師", score:55 },
-      { text:"ラウンダー", score:70 },
-      { text:"エリアマネージャー", score:90 }
-    ]
-  },
-  {
-    question:"勤務エリアは？",
-    answers:[
-      { text:"地方", score:25 },
-      { text:"郊外", score:35 },
-      { text:"都市部", score:45 }
-    ]
-  },
-  {
-    question:"転職意欲は？",
-    answers:[
-      { text:"今は考えていない", score:10 },
-      { text:"良い求人があれば", score:25 },
-      { text:"半年以内に考えたい", score:35 },
-      { text:"すぐにでも考えたい", score:45 }
-    ]
-  },
-  {
-    question:"一番重視する条件は？",
-    answers:[
-      { text:"年収アップ", score:45 },
-      { text:"ワークライフバランス", score:30 },
-      { text:"キャリアアップ", score:40 },
-      { text:"人間関係・職場環境", score:25 }
-    ]
-  }
-];
-
-let currentQuestion = 0;
-let totalScore = 0;
-let history = [];
-
-function startQuiz(){
-  document.getElementById("start-screen").style.display = "none";
-  document.getElementById("quiz-screen").style.display = "block";
-  showQuestion();
+body{
+  margin:0;
+  background:#f3f8f7;
+  font-family:sans-serif;
+  color:#243b3a;
 }
 
-function showQuestion(){
-  const q = questions[currentQuestion];
-
-  document.getElementById("progress-text").innerText =
-    `質問 ${currentQuestion + 1} / ${questions.length}`;
-
-  document.getElementById("progress-fill").style.width =
-    `${((currentQuestion + 1) / questions.length) * 100}%`;
-
-  document.getElementById("question").innerText = q.question;
-
-  const answersDiv = document.getElementById("answers");
-  answersDiv.innerHTML = "";
-
-  q.answers.forEach(answer => {
-    const button = document.createElement("button");
-    button.className = "answer-button";
-    button.innerText = answer.text;
-
-    button.onclick = () => {
-      history.push(answer.score);
-      totalScore += answer.score;
-      currentQuestion++;
-
-      if(currentQuestion < questions.length){
-        showQuestion();
-      }else{
-        showResult();
-      }
-    };
-
-    answersDiv.appendChild(button);
-  });
-
-  document.getElementById("back-button").style.display =
-    currentQuestion === 0 ? "none" : "block";
+.app{
+  max-width:900px;
+  margin:auto;
+  padding:20px;
 }
 
-function goBack(){
-  if(currentQuestion > 0){
-    currentQuestion--;
-    const lastScore = history.pop();
-    totalScore -= lastScore;
-    showQuestion();
-  }
+.start{
+  text-align:center;
 }
 
-function showResult(){
-  document.getElementById("quiz-screen").style.display = "none";
-  document.getElementById("result-screen").style.display = "block";
+.hero-image{
+  width:100%;
+  border-radius:20px;
+  display:block;
+  box-shadow:0 12px 30px rgba(0,0,0,.12);
+}
 
-  let rank = "";
-  let salary = "";
-  let comment = "";
-  let jobs = [];
+.start-button{
+  width:100%;
+  padding:22px;
+  margin-top:20px;
+  border:none;
+  border-radius:18px;
+  background:#0f8f7f;
+  color:white;
+  font-size:30px;
+  font-weight:bold;
+}
 
-  if(totalScore >= 360){
-    rank = "Aランク";
-    salary = "700〜800万円";
-    comment = "エリアマネージャーや複数店舗管理など、高年収求人を狙える可能性があります。";
-    jobs = ["エリアマネージャー", "複数店舗管理", "高年収調剤薬局", "マネジメント求人"];
-  }else if(totalScore >= 310){
-    rank = "B＋ランク";
-    salary = "650〜750万円";
-    comment = "ラウンダーや管理薬剤師として、高年収求人の対象になりやすい層です。";
-    jobs = ["ラウンダー", "管理薬剤師", "高年収求人", "在宅強化薬局"];
-  }else if(totalScore >= 250){
-    rank = "Bランク";
-    salary = "550〜700万円";
-    comment = "管理薬剤師や経験豊富な薬剤師として、転職市場で一定の評価が期待できます。";
-    jobs = ["管理薬剤師", "調剤薬局", "ドラッグストア", "年収アップ求人"];
-  }else if(totalScore >= 200){
-    rank = "C＋ランク";
-    salary = "500〜650万円";
-    comment = "中堅薬剤師として、条件や勤務地によって年収アップを狙える可能性があります。";
-    jobs = ["中堅薬剤師求人", "働き方改善求人", "地域密着薬局"];
-  }else{
-    rank = "Cランク";
-    salary = "450〜600万円";
-    comment = "一般薬剤師としての市場価値があります。経験や条件次第で今後さらに上を目指せます。";
-    jobs = ["一般薬剤師求人", "未経験相談可", "教育体制あり", "働きやすさ重視求人"];
+.card{
+  background:white;
+  border-radius:22px;
+  padding:30px;
+  box-shadow:0 12px 30px rgba(0,0,0,.1);
+}
+
+.progress{
+  color:#0f8f7f;
+  font-weight:bold;
+  margin-bottom:24px;
+}
+
+.progress-bar{
+  height:12px;
+  background:#dcefeb;
+  border-radius:999px;
+  overflow:hidden;
+  margin-top:10px;
+}
+
+#progress-fill{
+  height:100%;
+  width:0%;
+  background:#0f8f7f;
+}
+
+#question{
+  font-size:32px;
+  line-height:1.5;
+}
+
+.answer-button{
+  width:100%;
+  padding:24px;
+  margin:12px 0;
+  border-radius:16px;
+  border:2px solid #dce9e6;
+  background:white;
+  font-size:30px;
+  font-weight:700;
+}
+
+.answer-button:hover{
+  background:#0f8f7f;
+  color:white;
+}
+
+.back-button{
+  width:100%;
+  margin-top:20px;
+  padding:16px;
+  border:none;
+  border-radius:14px;
+  background:#e8f3f1;
+  color:#0f8f7f;
+  font-size:20px;
+  font-weight:bold;
+}
+
+.result{
+  text-align:center;
+}
+
+.result-label{
+  font-size:20px;
+  font-weight:bold;
+  color:#0f8f7f;
+}
+
+#rank-result{
+  font-size:56px;
+  color:#ef7d8d;
+  margin:10px 0;
+}
+
+.salary{
+  font-size:40px;
+  font-weight:bold;
+  margin:20px 0;
+}
+
+.comment{
+  font-size:20px;
+  line-height:1.8;
+}
+
+.job-box,
+.lead-box{
+  background:#f3f8f7;
+  border-radius:18px;
+  padding:22px;
+  margin-top:24px;
+  text-align:left;
+}
+
+.job-box h2,
+.lead-box h2{
+  color:#0f8f7f;
+}
+
+.job-box li{
+  font-size:20px;
+  margin:10px 0;
+}
+
+.line-button{
+  width:100%;
+  padding:20px;
+  border:none;
+  border-radius:16px;
+  background:#06c755;
+  color:white;
+  font-size:24px;
+  font-weight:bold;
+}
+
+@media(max-width:600px){
+  .app{
+    padding:12px;
   }
 
-  document.getElementById("rank-result").innerText = rank;
-  document.getElementById("salary-result").innerText = salary;
-  document.getElementById("comment").innerText = comment;
+  #question{
+    font-size:26px;
+  }
 
-  const jobList = document.getElementById("job-list");
-  jobList.innerHTML = "";
+  .answer-button{
+    font-size:24px;
+    padding:22px;
+  }
 
-  jobs.forEach(job => {
-    const li = document.createElement("li");
-    li.innerText = job;
-    jobList.appendChild(li);
-  });
+  #rank-result{
+    font-size:46px;
+  }
+
+  .salary{
+    font-size:32px;
+  }
 }
