@@ -100,13 +100,11 @@ const baseQuestions = [
     help: "役職が複数ある場合は、もっとも近いものを選択してください。",
     answers: [
       { text: "一般薬剤師", score: 20 },
-      { text: "主任・リーダー", score: 35 },
       { text: "管理薬剤師", score: 55 },
       { text: "ラウンダー", score: 70 },
       { text: "薬局長・店長", score: 75 },
       { text: "エリアマネージャー", score: 90 },
       { text: "薬剤部長", score: 95 },
-      { text: "本部職・管理職", score: 90 }
     ]
   },
   {
