@@ -79,9 +79,11 @@ body{
   cursor:pointer;
 }
 
-.answer-button:hover{
-  background:#0f8f7f;
-  color:white;
+@media (hover:hover){
+  .answer-button:hover{
+    background:#0f8f7f;
+    color:white;
+  }
 }
 
 .back-button{
@@ -104,16 +106,16 @@ body{
   text-align:center;
 }
 
-#rank{
+#result-screen h1{
   text-align:center;
-  font-size:56px;
-  color:#ef7d8d;
+  font-size:34px;
 }
 
 .salary{
   text-align:center;
-  font-size:42px;
+  font-size:46px;
   font-weight:bold;
+  color:#ef7d8d;
   margin:20px 0;
 }
 
@@ -135,15 +137,18 @@ body{
 }
 
 .line-button{
+  display:block;
   width:100%;
-  padding:20px;
-  border:none;
-  border-radius:16px;
-  background:#06c755;
+  text-align:center;
+  background:#06C755;
   color:white;
-  font-size:26px;
+  text-decoration:none;
+  padding:20px;
+  border-radius:16px;
+  font-size:24px;
   font-weight:bold;
-  cursor:pointer;
+  margin-top:24px;
+  box-sizing:border-box;
 }
 
 @media(max-width:600px){
@@ -160,11 +165,7 @@ body{
     padding:22px;
   }
 
-  #rank{
-    font-size:44px;
-  }
-
   .salary{
-    font-size:32px;
+    font-size:34px;
   }
 }
