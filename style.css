@@ -1,186 +1,149 @@
-body{
-  margin:0;
-  background:#f3f8f7;
-  font-family:sans-serif;
-  color:#243b3a;
+const questions = [
+  {
+    text: "年齢を選んでください",
+    answers: [
+      { text: "20代", score: 20 },
+      { text: "30代", score: 35 },
+      { text: "40代", score: 45 },
+      { text: "50代以上", score: 35 }
+    ]
+  },
+  {
+    text: "薬剤師としての経験年数は？",
+    answers: [
+      { text: "1年未満", score: 10 },
+      { text: "1〜3年", score: 20 },
+      { text: "4〜9年", score: 35 },
+      { text: "10年以上", score: 50 }
+    ]
+  },
+  {
+    text: "現在の勤務先は？",
+    answers: [
+      { text: "調剤薬局", score: 35 },
+      { text: "病院", score: 25 },
+      { text: "ドラッグストア", score: 45 },
+      { text: "企業", score: 50 }
+    ]
+  },
+  {
+    text: "現在の役職は？",
+    answers: [
+      { text: "一般薬剤師", score: 20 },
+      { text: "管理薬剤師", score: 55 },
+      { text: "ラウンダー", score: 70 },
+      { text: "エリアマネージャー", score: 90 }
+    ]
+  },
+  {
+    text: "勤務エリアは？",
+    answers: [
+      { text: "地方", score: 25 },
+      { text: "郊外", score: 35 },
+      { text: "都市部", score: 45 }
+    ]
+  },
+  {
+    text: "転職意欲は？",
+    answers: [
+      { text: "今は考えていない", score: 10 },
+      { text: "良い求人があれば", score: 25 },
+      { text: "半年以内に考えたい", score: 35 },
+      { text: "すぐにでも考えたい", score: 45 }
+    ]
+  },
+  {
+    text: "一番重視する条件は？",
+    answers: [
+      { text: "年収アップ", score: 45 },
+      { text: "ワークライフバランス", score: 30 },
+      { text: "キャリアアップ", score: 40 },
+      { text: "人間関係・職場環境", score: 25 }
+    ]
+  }
+];
+
+let current = 0;
+let score = 0;
+let scoreHistory = [];
+
+function startQuiz(){
+  document.getElementById("start-screen").classList.add("hidden");
+  document.getElementById("quiz-screen").classList.remove("hidden");
+  showQuestion();
 }
 
-.app{
-  max-width:900px;
-  margin:auto;
-  padding:20px;
+function showQuestion(){
+  const question = questions[current];
+
+  document.getElementById("progress-text").innerText =
+    "質問 " + (current + 1) + " / " + questions.length;
+
+  document.getElementById("progress-fill").style.width =
+    ((current + 1) / questions.length * 100) + "%";
+
+  document.getElementById("question-title").innerText = question.text;
+
+  const answerArea = document.getElementById("answer-area");
+  answerArea.innerHTML = "";
+
+  question.answers.forEach(function(answer){
+    const button = document.createElement("button");
+    button.className = "answer-button";
+    button.innerText = answer.text;
+
+    button.onclick = function(){
+      score += answer.score;
+      scoreHistory.push(answer.score);
+      current++;
+
+      if(current < questions.length){
+        showQuestion();
+      }else{
+        showResult();
+      }
+    };
+
+    answerArea.appendChild(button);
+  });
+
+  document.querySelector(".back-button").style.display =
+    current === 0 ? "none" : "block";
 }
 
-.hidden{
-  display:none;
-}
-
-.hero-image{
-  width:100%;
-  display:block;
-  border-radius:20px;
-  box-shadow:0 12px 30px rgba(0,0,0,.12);
-}
-
-.start-button{
-  width:100%;
-  padding:24px;
-  margin-top:20px;
-  border:none;
-  border-radius:18px;
-  background:#0f8f7f;
-  color:white;
-  font-size:32px;
-  font-weight:bold;
-  cursor:pointer;
-}
-
-.card{
-  background:white;
-  border-radius:24px;
-  padding:36px;
-  box-shadow:0 12px 30px rgba(0,0,0,.1);
-}
-
-.progress-text{
-  font-size:20px;
-  font-weight:bold;
-  color:#0f8f7f;
-}
-
-.progress-bar{
-  height:12px;
-  background:#dcefeb;
-  border-radius:999px;
-  overflow:hidden;
-  margin:12px 0 30px;
-}
-
-#progress-fill{
-  height:100%;
-  width:0%;
-  background:#0f8f7f;
-}
-
-#question-title{
-  font-size:34px;
-  margin-bottom:26px;
-}
-
-.answer-button{
-  width:100%;
-  padding:26px;
-  margin:12px 0;
-  border-radius:16px;
-  border:2px solid #dce9e6;
-  background:white;
-  color:#243b3a;
-  font-size:30px;
-  font-weight:bold;
-  cursor:pointer;
-}
-
-@media (hover:hover){
-  .answer-button:hover{
-    background:#0f8f7f;
-    color:white;
+function goBack(){
+  if(current > 0){
+    current--;
+    const lastScore = scoreHistory.pop();
+    score -= lastScore;
+    showQuestion();
   }
 }
 
-.back-button{
-  width:100%;
-  padding:18px;
-  margin-top:20px;
-  border:none;
-  border-radius:14px;
-  background:#e8f3f1;
-  color:#0f8f7f;
-  font-size:22px;
-  font-weight:bold;
-  cursor:pointer;
-}
+function showResult(){
+  document.getElementById("quiz-screen").classList.add("hidden");
+  document.getElementById("result-screen").classList.remove("hidden");
 
-.label{
-  color:#0f8f7f;
-  font-size:22px;
-  font-weight:bold;
-  text-align:center;
-}
+  let salary = "";
+  let comment = "";
 
-.salary-box{
-  text-align:center;
-  margin:28px 0;
-}
-
-.salary-label{
-  font-size:26px;
-  font-weight:bold;
-  margin-bottom:12px;
-}
-
-.salary{
-  font-size:56px;
-  font-weight:bold;
-  color:#ef7d8d;
-}
-
-.comment{
-  text-align:center;
-  font-size:22px;
-  line-height:1.8;
-}
-
-.lead-box{
-  background:#f3f8f7;
-  padding:24px;
-  border-radius:18px;
-  margin-top:30px;
-}
-
-.lead-box h2{
-  color:#0f8f7f;
-  font-size:26px;
-}
-
-.lead-box p{
-  font-size:18px;
-  line-height:1.8;
-}
-
-.line-button{
-  display:block;
-  width:100%;
-  text-align:center;
-  background:#06C755;
-  color:white;
-  text-decoration:none;
-  padding:20px;
-  border-radius:16px;
-  font-size:24px;
-  font-weight:bold;
-  margin-top:24px;
-  box-sizing:border-box;
-}
-
-@media(max-width:600px){
-  .app{
-    padding:12px;
+  if(score >= 360){
+    salary = "700〜800万円";
+    comment = "エリアマネージャーや複数店舗管理など、高年収求人を狙える可能性があります。";
+  }else if(score >= 310){
+    salary = "650〜750万円";
+    comment = "ラウンダーや管理薬剤師として、高年収求人の対象になりやすい層です。";
+  }else if(score >= 250){
+    salary = "550〜700万円";
+    comment = "管理薬剤師や経験豊富な薬剤師として、転職市場で一定の評価が期待できます。";
+  }else if(score >= 200){
+    salary = "500〜650万円";
+    comment = "中堅薬剤師として、条件や勤務地によって年収アップを狙える可能性があります。";
+  }else{
+    salary = "450〜600万円";
+    comment = "一般薬剤師としての市場価値があります。経験や条件次第で今後さらに上を目指せます。";
   }
 
-  #question-title{
-    font-size:26px;
-  }
-
-  .answer-button{
-    font-size:24px;
-    padding:22px;
-  }
-
-  .salary{
-    font-size:40px;
-  }
-
-  .line-button{
-    font-size:22px;
-  }
+  document.getElementById("salary").innerText = salary;
+  document.getElementById("comment").innerText = comment;
 }
