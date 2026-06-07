@@ -74,6 +74,7 @@ body{
   border-radius:16px;
   border:2px solid #dce9e6;
   background:white;
+  color:#243b3a;
   font-size:30px;
   font-weight:bold;
   cursor:pointer;
@@ -106,17 +107,21 @@ body{
   text-align:center;
 }
 
-#result-screen h1{
+.salary-box{
   text-align:center;
-  font-size:34px;
+  margin:28px 0;
+}
+
+.salary-label{
+  font-size:26px;
+  font-weight:bold;
+  margin-bottom:12px;
 }
 
 .salary{
-  text-align:center;
-  font-size:46px;
+  font-size:56px;
   font-weight:bold;
   color:#ef7d8d;
-  margin:20px 0;
 }
 
 .comment{
@@ -134,6 +139,12 @@ body{
 
 .lead-box h2{
   color:#0f8f7f;
+  font-size:26px;
+}
+
+.lead-box p{
+  font-size:18px;
+  line-height:1.8;
 }
 
 .line-button{
@@ -166,6 +177,10 @@ body{
   }
 
   .salary{
-    font-size:34px;
+    font-size:40px;
+  }
+
+  .line-button{
+    font-size:22px;
   }
 }
