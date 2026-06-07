@@ -11,7 +11,7 @@
 <div class="app">
 
   <section id="start-screen">
-    <img src="images" class="hero-image" alt="薬剤師市場価値診断">
+    <img src="images/main.png" class="hero-image" alt="薬剤師市場価値診断">
     <button class="start-button" onclick="startQuiz()">診断を始める</button>
   </section>
 
@@ -22,26 +22,40 @@
     </div>
 
     <h1 id="question-title"></h1>
+    <p id="question-help" class="question-help"></p>
     <div id="answer-area"></div>
 
     <button class="back-button" onclick="goBack()">← 前の質問に戻る</button>
   </section>
 
   <section id="result-screen" class="card hidden">
-    <p class="label">あなたの市場価値</p>
-    <h1>想定年収</h1>
-    <div id="salary" class="salary"></div>
+    <p class="result-title">あなたの市場価値</p>
+
+    <div class="salary-box">
+      <p class="salary-label">想定年収</p>
+      <div id="salary" class="salary">計算中...</div>
+    </div>
+
     <p id="comment" class="comment"></p>
 
+    <div class="summary-box">
+      <p><span>エリア</span><strong id="summary-area"></strong></p>
+      <p><span>都道府県</span><strong id="summary-prefecture"></strong></p>
+      <p><span>役職</span><strong id="summary-position"></strong></p>
+    </div>
+
     <div class="lead-box">
-      <h2>さらに詳しい求人情報を知りたい方へ</h2>
+      <h2>年収アップの可能性を確認しませんか？</h2>
       <p>
-        診断結果をもとに、非公開求人や年収アップの可能性を無料でご案内します。
+        京都医療コンシェルジュでは、薬剤師専門の担当者が
+        あなたの市場価値や年収アップの可能性を無料でご案内しています。
       </p>
 
       <a href="https://lin.ee/ojcWlsZ" target="_blank" class="line-button">
-        自分に合う求人をLINEで確認する
+        無料で年収相談する
       </a>
+
+      <button class="restart-button" onclick="restartQuiz()">もう一度診断する</button>
     </div>
   </section>
 
