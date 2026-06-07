@@ -1,171 +1,267 @@
-body{
-  margin:0;
-  background:#f3f8f7;
-  font-family:sans-serif;
-  color:#243b3a;
+* {
+  box-sizing: border-box;
 }
 
-.app{
-  max-width:900px;
-  margin:auto;
-  padding:20px;
+body {
+  margin: 0;
+  background: #f3f8f7;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  color: #243b3a;
 }
 
-.hidden{
-  display:none;
+.app {
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
 }
 
-.hero-image{
-  width:100%;
-  display:block;
-  border-radius:20px;
-  box-shadow:0 12px 30px rgba(0,0,0,.12);
+.hidden {
+  display: none;
 }
 
-.start-button{
-  width:100%;
-  padding:24px;
-  margin-top:20px;
-  border:none;
-  border-radius:18px;
-  background:#0f8f7f;
-  color:white;
-  font-size:32px;
-  font-weight:bold;
-  cursor:pointer;
+.hero-image {
+  width: 100%;
+  display: block;
+  border-radius: 20px;
+  box-shadow: 0 12px 30px rgba(0,0,0,.12);
 }
 
-.card{
-  background:white;
-  border-radius:24px;
-  padding:36px;
-  box-shadow:0 12px 30px rgba(0,0,0,.1);
+.start-button {
+  width: 100%;
+  padding: 24px;
+  margin-top: 20px;
+  border: none;
+  border-radius: 18px;
+  background: #0f8f7f;
+  color: white;
+  font-size: 30px;
+  font-weight: bold;
+  cursor: pointer;
 }
 
-.progress-text{
-  font-size:20px;
-  font-weight:bold;
-  color:#0f8f7f;
+.card {
+  background: white;
+  border-radius: 24px;
+  padding: 36px;
+  box-shadow: 0 12px 30px rgba(0,0,0,.1);
 }
 
-.progress-bar{
-  height:12px;
-  background:#dcefeb;
-  border-radius:999px;
-  overflow:hidden;
-  margin:12px 0 30px;
+.progress-text {
+  font-size: 18px;
+  font-weight: bold;
+  color: #0f8f7f;
 }
 
-#progress-fill{
-  height:100%;
-  width:0%;
-  background:#0f8f7f;
+.progress-bar {
+  height: 12px;
+  background: #dcefeb;
+  border-radius: 999px;
+  overflow: hidden;
+  margin: 12px 0 30px;
 }
 
-#question-title{
-  font-size:34px;
-  margin-bottom:26px;
+#progress-fill {
+  height: 100%;
+  width: 0%;
+  background: #0f8f7f;
+  transition: width .3s ease;
 }
 
-.answer-button{
-  width:100%;
-  padding:26px;
-  margin:12px 0;
-  border-radius:16px;
-  border:2px solid #dce9e6;
-  background:white;
-  font-size:30px;
-  font-weight:bold;
-  cursor:pointer;
+#question-title {
+  font-size: 32px;
+  margin: 0 0 10px;
+  line-height: 1.5;
 }
 
-@media (hover:hover){
-  .answer-button:hover{
-    background:#0f8f7f;
-    color:white;
+.question-help {
+  margin: 0 0 22px;
+  color: #667;
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.answer-button {
+  width: 100%;
+  padding: 22px;
+  margin: 10px 0;
+  border-radius: 16px;
+  border: 2px solid #dce9e6;
+  background: white;
+  color: #243b3a;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+  text-align: left;
+}
+
+.answer-button:hover {
+  background: #0f8f7f;
+  color: white;
+}
+
+.back-button {
+  width: 100%;
+  padding: 18px;
+  margin-top: 20px;
+  border: none;
+  border-radius: 14px;
+  background: #e8f3f1;
+  color: #0f8f7f;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.result-title {
+  color: #0f8f7f;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  margin: 0 0 28px;
+}
+
+.salary-box {
+  text-align: center;
+  margin: 0 auto 26px;
+  padding: 28px 18px;
+  background: #fff7f8;
+  border-radius: 20px;
+}
+
+.salary-label {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0 0 8px;
+  color: #243b3a;
+}
+
+.salary {
+  font-size: 52px;
+  font-weight: bold;
+  color: #ef7d8d;
+  line-height: 1.2;
+}
+
+.comment {
+  text-align: center;
+  font-size: 20px;
+  line-height: 1.8;
+  margin: 0 0 26px;
+}
+
+.summary-box {
+  background: #ffffff;
+  border: 2px solid #e4f0ed;
+  border-radius: 18px;
+  padding: 18px;
+  margin-bottom: 28px;
+}
+
+.summary-box p {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  margin: 10px 0;
+  font-size: 16px;
+}
+
+.summary-box span {
+  color: #6b7c7a;
+}
+
+.summary-box strong {
+  color: #243b3a;
+  text-align: right;
+}
+
+.lead-box {
+  background: #f3f8f7;
+  padding: 28px;
+  border-radius: 20px;
+  margin-top: 24px;
+}
+
+.lead-box h2 {
+  color: #0f8f7f;
+  font-size: 24px;
+  line-height: 1.5;
+  margin: 0 0 14px;
+}
+
+.lead-box p {
+  font-size: 16px;
+  line-height: 1.8;
+  margin: 0;
+}
+
+.line-button {
+  display: block;
+  width: 100%;
+  text-align: center;
+  background: #06C755;
+  color: white;
+  text-decoration: none;
+  padding: 20px;
+  border-radius: 16px;
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 24px;
+}
+
+.restart-button {
+  width: 100%;
+  padding: 16px;
+  margin-top: 14px;
+  border: none;
+  border-radius: 14px;
+  background: white;
+  color: #0f8f7f;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+@media(max-width: 600px) {
+  .app {
+    padding: 12px;
   }
-}
 
-.back-button{
-  width:100%;
-  padding:18px;
-  margin-top:20px;
-  border:none;
-  border-radius:14px;
-  background:#e8f3f1;
-  color:#0f8f7f;
-  font-size:22px;
-  font-weight:bold;
-  cursor:pointer;
-}
-
-.label{
-  color:#0f8f7f;
-  font-size:22px;
-  font-weight:bold;
-  text-align:center;
-}
-
-#result-screen h1{
-  text-align:center;
-  font-size:34px;
-}
-
-.salary{
-  text-align:center;
-  font-size:46px;
-  font-weight:bold;
-  color:#ef7d8d;
-  margin:20px 0;
-}
-
-.comment{
-  text-align:center;
-  font-size:22px;
-  line-height:1.8;
-}
-
-.lead-box{
-  background:#f3f8f7;
-  padding:24px;
-  border-radius:18px;
-  margin-top:30px;
-}
-
-.lead-box h2{
-  color:#0f8f7f;
-}
-
-.line-button{
-  display:block;
-  width:100%;
-  text-align:center;
-  background:#06C755;
-  color:white;
-  text-decoration:none;
-  padding:20px;
-  border-radius:16px;
-  font-size:24px;
-  font-weight:bold;
-  margin-top:24px;
-  box-sizing:border-box;
-}
-
-@media(max-width:600px){
-  .app{
-    padding:12px;
+  .card {
+    padding: 24px 18px;
+    border-radius: 20px;
   }
 
-  #question-title{
-    font-size:26px;
+  .start-button {
+    font-size: 24px;
+    padding: 20px;
   }
 
-  .answer-button{
-    font-size:24px;
-    padding:22px;
+  #question-title {
+    font-size: 24px;
   }
 
-  .salary{
-    font-size:34px;
+  .answer-button {
+    font-size: 20px;
+    padding: 18px 16px;
+  }
+
+  .salary {
+    font-size: 38px;
+  }
+
+  .comment {
+    font-size: 17px;
+  }
+
+  .lead-box {
+    padding: 22px 18px;
+  }
+
+  .lead-box h2 {
+    font-size: 21px;
+  }
+
+  .line-button {
+    font-size: 21px;
   }
 }
