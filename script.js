@@ -61,8 +61,9 @@ const prefecturesByArea = {
 
 const baseQuestions = [
   {
-    key: "age",
-    text: "年齢を選んでください",
+  key: "age",
+  image: "images/q1-age.jpg",
+  text: "年齢を選んでください",
     help: "現在の年齢に近いものを選択してください。",
     answers: [
       { text: "20代", score: 20 },
