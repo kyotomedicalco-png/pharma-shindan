@@ -156,11 +156,27 @@ let selectedData = {
   position: ""
 };
 
+function preloadImages() {
+  const imagePaths = [
+    ...baseQuestions.map(function(question) {
+      return question.image;
+    }),
+    "images/q6.png.png"
+  ].filter(Boolean);
+
+  imagePaths.forEach(function(src) {
+    const img = new Image();
+    img.src = src;
+  });
+}
+
 function buildQuestions() {
   questions = JSON.parse(JSON.stringify(baseQuestions));
 }
 
 function startQuiz() {
+  preloadImages();
+
   buildQuestions();
 
   current = 0;
@@ -355,18 +371,14 @@ function showResult() {
   document.getElementById("summary-position").innerText =
     selectedData.position || "未選択";
 
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth"
-  });
+  window.scrollTo(0, 0);
 }
 
 function restartQuiz() {
   document.getElementById("result-screen").classList.add("hidden");
   document.getElementById("start-screen").classList.remove("hidden");
 
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth"
-  });
+  window.scrollTo(0, 0);
 }
+
+window.addEventListener("load", preloadImages);
