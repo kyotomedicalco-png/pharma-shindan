@@ -265,19 +265,12 @@ body {
     font-size: 21px;
   }
 
-.question-image{
+..question-image{
   width:100%;
   max-width:100%;
-  max-height:180px;
-
-  object-fit:contain;
-
   border-radius:16px;
-
   display:block;
   margin:0 0 14px;
-
-  box-shadow:0 6px 16px rgba(0,0,0,.08);
 }
 
 .question-image.hidden{
