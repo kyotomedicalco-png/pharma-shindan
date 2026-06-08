@@ -61,9 +61,9 @@ const prefecturesByArea = {
 
 const baseQuestions = [
   {
-  key: "age",
-  image: "images/q1-age-v2.png",
-  text: "年齢を選んでください",
+    key: "age",
+    image: "images/q1-age-v2.png",
+    text: "年齢を選んでください",
     help: "現在の年齢に近いものを選択してください。",
     answers: [
       { text: "20代", score: 20 },
@@ -74,6 +74,7 @@ const baseQuestions = [
   },
   {
     key: "experience",
+    image: "images/q2.png.png",
     text: "薬剤師としての経験年数は？",
     help: "薬剤師として勤務した通算年数を選択してください。",
     answers: [
@@ -85,6 +86,7 @@ const baseQuestions = [
   },
   {
     key: "workplace",
+    image: "images/q3.png.png",
     text: "現在の勤務先は？",
     help: "もっとも近い勤務先を選択してください。",
     answers: [
@@ -97,6 +99,7 @@ const baseQuestions = [
   },
   {
     key: "position",
+    image: "images/q4.png.png",
     text: "現在の役職は？",
     help: "役職が複数ある場合は、もっとも近いものを選択してください。",
     answers: [
@@ -105,11 +108,12 @@ const baseQuestions = [
       { text: "ラウンダー", score: 70 },
       { text: "薬局長・店長", score: 75 },
       { text: "エリアマネージャー", score: 90 },
-      { text: "薬剤部長", score: 95 },
+      { text: "薬剤部長", score: 95 }
     ]
   },
   {
     key: "area",
+    image: "images/q5.png.png",
     text: "勤務希望エリアを選んでください",
     help: "現在の勤務エリア、または転職を希望するエリアを選択してください。",
     answers: Object.keys(prefecturesByArea).map(function(area) {
@@ -118,6 +122,7 @@ const baseQuestions = [
   },
   {
     key: "motivation",
+    image: "images/q7.png.png",
     text: "転職意欲は？",
     help: "今のお気持ちに近いものを選択してください。",
     answers: [
@@ -129,6 +134,7 @@ const baseQuestions = [
   },
   {
     key: "priority",
+    image: "images/q8.png.png",
     text: "一番重視する条件は？",
     help: "転職や働き方で一番重視したいものを選択してください。",
     answers: [
@@ -182,15 +188,15 @@ function showQuestion() {
   document.getElementById("progress-fill").style.width =
     ((current + 1) / questions.length * 100) + "%";
 
-const imageElement = document.getElementById("question-image");
+  const imageElement = document.getElementById("question-image");
 
-if (question.image) {
-  imageElement.src = question.image;
-  imageElement.classList.remove("hidden");
-} else {
-  imageElement.classList.add("hidden");
-}
-  
+  if (question.image) {
+    imageElement.src = question.image;
+    imageElement.classList.remove("hidden");
+  } else {
+    imageElement.classList.add("hidden");
+  }
+
   document.getElementById("question-title").innerText = question.text;
   document.getElementById("question-help").innerText = question.help || "";
 
@@ -232,6 +238,7 @@ function selectAnswer(question, answer) {
 
     const prefectureQuestion = {
       key: "prefecture",
+      image: "images/q6.png.png",
       text: "都道府県を選んでください",
       help: selectedData.area + "の中から、現在または希望する都道府県を選択してください。",
       answers: prefecturesByArea[answer.text]
