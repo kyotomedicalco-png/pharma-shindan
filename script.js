@@ -182,6 +182,15 @@ function showQuestion() {
   document.getElementById("progress-fill").style.width =
     ((current + 1) / questions.length * 100) + "%";
 
+const imageElement = document.getElementById("question-image");
+
+if (question.image) {
+  imageElement.src = question.image;
+  imageElement.classList.remove("hidden");
+} else {
+  imageElement.classList.add("hidden");
+}
+  
   document.getElementById("question-title").innerText = question.text;
   document.getElementById("question-help").innerText = question.help || "";
 
