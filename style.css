@@ -44,6 +44,7 @@ body {
   border-radius: 24px;
   padding: 36px;
   box-shadow: 0 12px 30px rgba(0,0,0,.1);
+  overflow: hidden;
 }
 
 .progress-text {
@@ -57,7 +58,7 @@ body {
   background: #dcefeb;
   border-radius: 999px;
   overflow: hidden;
-  margin: 12px 0 30px;
+  margin: 12px 0 26px;
 }
 
 #progress-fill {
@@ -67,9 +68,23 @@ body {
   transition: width .3s ease;
 }
 
+.question-image {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 16px;
+  margin: 0 0 18px;
+  box-shadow: 0 6px 16px rgba(0,0,0,.08);
+}
+
+.question-image.hidden {
+  display: none;
+}
+
 #question-title {
-  font-size: 32px;
-  margin: 0 0 10px;
+  font-size: 30px;
+  margin: 0 0 8px;
   line-height: 1.5;
 }
 
@@ -132,7 +147,6 @@ body {
   font-size: 18px;
   font-weight: bold;
   margin: 0 0 8px;
-  color: #243b3a;
 }
 
 .salary {
@@ -236,8 +250,17 @@ body {
     padding: 20px;
   }
 
+  .question-image {
+    margin-bottom: 18px;
+    border-radius: 14px;
+  }
+
   #question-title {
     font-size: 24px;
+  }
+
+  .question-help {
+    font-size: 15px;
   }
 
   .answer-button {
@@ -264,15 +287,4 @@ body {
   .line-button {
     font-size: 21px;
   }
-
-..question-image{
-  width:100%;
-  max-width:100%;
-  border-radius:16px;
-  display:block;
-  margin:0 0 14px;
-}
-
-.question-image.hidden{
-  display:none;
 }
