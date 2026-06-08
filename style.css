@@ -10,9 +10,11 @@ body {
 }
 
 .app {
-  max-width: 900px;
-  margin: auto;
-  padding: 20px;
+  width: 100%;
+  max-width: none;
+  min-height: 100vh;
+  margin: 0;
+  padding: 40px 24px;
 }
 
 .hidden {
@@ -45,6 +47,8 @@ body {
   padding: 36px;
   box-shadow: 0 12px 30px rgba(0,0,0,.1);
   overflow: hidden;
+  max-width: 1100px;
+  margin: 0 auto;
 }
 
 .progress-text {
