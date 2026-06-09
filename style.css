@@ -396,9 +396,15 @@ body {
     border-radius: 0;
   }
 
-  .visual-wrap {
-    height: 250px;
-  }
+.visual-wrap {
+  height: auto;
+}
+
+.question-image {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
 
   .quiz-content {
     padding: 34px 22px 28px;
