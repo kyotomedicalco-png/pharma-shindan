@@ -3,7 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>薬剤師市場価値診断</title>
+
   <link rel="stylesheet" href="style.css">
 
   <meta property="og:title" content="PharmaSwitch 薬剤師市場価値診断">
@@ -17,80 +19,117 @@
 </head>
 
 <body>
-<div class="app">
+  <div class="app">
 
-  <header class="site-header">
-  <img src="images/pharmaswitch-logo.png.png"
-     class="site-logo"
-     alt="PharmaSwitch">
-    <p class="site-copy">3分で完了！薬剤師市場価値診断</p>
-  </header>
+    <header class="site-header">
+      <img
+        src="images/pharmaswitch-logo.png.png"
+        class="site-logo"
+        alt="PharmaSwitch"
+      >
+      <p class="site-copy">3分で完了！薬剤師市場価値診断</p>
+    </header>
 
-  <section id="start-screen" class="start-screen">
-    <img src="main.png.png" class="hero-image" alt="薬剤師市場価値診断">
-    <button class="start-button" onclick="startQuiz()">診断を始める</button>
-  </section>
+    <section id="start-screen" class="start-screen">
+      <img
+        src="main.png.png"
+        class="hero-image"
+        alt="薬剤師市場価値診断"
+      >
+      <button class="start-button" onclick="startQuiz()">
+        診断を始める
+      </button>
+    </section>
 
-  <section id="quiz-screen" class="quiz-card hidden">
-    <div class="quiz-layout">
+    <section id="quiz-screen" class="quiz-card hidden">
+      <div class="quiz-layout">
 
-      <div class="quiz-content">
-        <div class="question-head">
-          <div class="question-badge" id="question-badge">Q1</div>
-          <div>
-            <h1 id="question-title"></h1>
-            <p id="question-help" class="question-help"></p>
+        <div class="quiz-content">
+          <div class="question-head">
+            <div class="question-badge" id="question-badge">Q1</div>
+
+            <div>
+              <h1 id="question-title"></h1>
+              <p id="question-help" class="question-help"></p>
+            </div>
           </div>
+
+          <div id="answer-area" class="answer-grid"></div>
+
+          <div class="progress-dots" id="progress-dots"></div>
+
+          <button class="back-button" onclick="goBack()">
+            ← 前の画面に戻る
+          </button>
         </div>
 
-        <div id="answer-area" class="answer-grid"></div>
+        <picture class="visual-wrap">
+          <source
+            id="question-image-desktop-source"
+            media="(min-width: 1200px)"
+            srcset=""
+          >
+          <img
+            id="question-image"
+            class="question-image"
+            src=""
+            alt="診断画像"
+          >
+        </picture>
 
-        <div class="progress-dots" id="progress-dots"></div>
+      </div>
+    </section>
 
-        <button class="back-button" onclick="goBack()">← 前の画面に戻る</button>
+    <section id="result-screen" class="card hidden">
+      <p class="result-title">あなたの市場価値</p>
+
+      <div class="salary-box">
+        <p class="salary-label">想定年収</p>
+        <div id="salary" class="salary">計算中...</div>
       </div>
 
-      <picture class="visual-wrap">
-        <source id="question-image-desktop-source" media="(min-width: 1200px)" srcset="">
-        <img id="question-image" class="question-image" alt="診断画像">
-      </picture>
+      <p id="comment" class="comment"></p>
 
-    </div>
-  </section>
+      <div class="summary-box">
+        <p>
+          <span>エリア</span>
+          <strong id="summary-area"></strong>
+        </p>
+        <p>
+          <span>都道府県</span>
+          <strong id="summary-prefecture"></strong>
+        </p>
+        <p>
+          <span>役職</span>
+          <strong id="summary-position"></strong>
+        </p>
+      </div>
 
-  <section id="result-screen" class="card hidden">
-    <p class="result-title">あなたの市場価値</p>
+      <div class="lead-box">
+        <h2>年収アップの可能性を確認しませんか？</h2>
 
-    <div class="salary-box">
-      <p class="salary-label">想定年収</p>
-      <div id="salary" class="salary">計算中...</div>
-    </div>
+        <p>
+          京都医療コンシェルジュでは、薬剤師専門の担当者が
+          あなたの市場価値や年収アップの可能性を無料でご案内しています。
+        </p>
 
-    <p id="comment" class="comment"></p>
+        <a
+          href="https://lin.ee/ojcWlsZ"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="line-button"
+        >
+          無料で年収相談する
+        </a>
 
-    <div class="summary-box">
-      <p><span>エリア</span><strong id="summary-area"></strong></p>
-      <p><span>都道府県</span><strong id="summary-prefecture"></strong></p>
-      <p><span>役職</span><strong id="summary-position"></strong></p>
-    </div>
+        <button class="restart-button" onclick="restartQuiz()">
+          もう一度診断する
+        </button>
+      </div>
+    </section>
 
-    <div class="lead-box">
-      <h2>年収アップの可能性を確認しませんか？</h2>
-      <p>
-        京都医療コンシェルジュでは、薬剤師専門の担当者が
-        あなたの市場価値や年収アップの可能性を無料でご案内しています。
-      </p>
+  </div>
 
-      <a href="https://lin.ee/ojcWlsZ" target="_blank" class="line-button">
-        無料で年収相談する
-      </a>
-
-      <button class="restart-button" onclick="restartQuiz()">もう一度診断する</button>
-    </div>
-  </section>
-
-</div>
-
-<script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
