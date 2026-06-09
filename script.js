@@ -28,14 +28,15 @@ const prefecturesByArea = {
     { text: "静岡県", score: 40 },
     { text: "愛知県", score: 42 }
   ],
-  "関西": [
-    { text: "京都府", score: 42 },
-    { text: "大阪府", score: 45 },
-    { text: "兵庫県", score: 42 },
-    { text: "滋賀県", score: 40 },
-    { text: "奈良県", score: 40 },
-    { text: "和歌山県", score: 38 }
-  ],
+"関西": [
+  { text: "京都府", score: 42 },
+  { text: "大阪府", score: 45 },
+  { text: "兵庫県", score: 42 },
+  { text: "滋賀県", score: 40 },
+  { text: "奈良県", score: 40 },
+  { text: "和歌山県", score: 38 },
+  { text: "三重県", score: 40 }
+],
   "中国・四国": [
     { text: "鳥取県", score: 35 },
     { text: "島根県", score: 35 },
