@@ -5,36 +5,55 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>薬剤師市場価値診断</title>
   <link rel="stylesheet" href="style.css">
+
   <meta property="og:title" content="PharmaSwitch 薬剤師市場価値診断">
-<meta property="og:description" content="7つの質問であなたの市場価値がわかる">
-<meta property="og:image" content="https://kyotomedicalco-png.github.io/pharma-shindan/main.png.png">
-<meta property="og:url" content="https://kyotomedicalco-png.github.io/pharma-shindan/">
-<meta property="og:type" content="website">
+  <meta property="og:description" content="7つの質問であなたの市場価値がわかる">
+  <meta property="og:image" content="https://kyotomedicalco-png.github.io/pharma-shindan/main.png.png">
+  <meta property="og:url" content="https://kyotomedicalco-png.github.io/pharma-shindan/">
+  <meta property="og:type" content="website">
 
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://kyotomedicalco-png.github.io/pharma-shindan/main.png.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://kyotomedicalco-png.github.io/pharma-shindan/main.png.png">
 </head>
-<body>
 
+<body>
 <div class="app">
 
-  <section id="start-screen">
+  <header class="site-header">
+    <img src="images/pharmaswitch-logo.png" class="site-logo" alt="PharmaSwitch">
+    <p class="site-copy">3分で完了！薬剤師市場価値診断</p>
+  </header>
+
+  <section id="start-screen" class="start-screen">
     <img src="main.png.png" class="hero-image" alt="薬剤師市場価値診断">
     <button class="start-button" onclick="startQuiz()">診断を始める</button>
   </section>
 
-  <section id="quiz-screen" class="card hidden">
-    <div class="progress-text" id="progress-text"></div>
-    <div class="progress-bar">
-      <div id="progress-fill"></div>
+  <section id="quiz-screen" class="quiz-card hidden">
+    <div class="quiz-layout">
+
+      <div class="quiz-content">
+        <div class="question-head">
+          <div class="question-badge" id="question-badge">Q1</div>
+          <div>
+            <h1 id="question-title"></h1>
+            <p id="question-help" class="question-help"></p>
+          </div>
+        </div>
+
+        <div id="answer-area" class="answer-grid"></div>
+
+        <div class="progress-dots" id="progress-dots"></div>
+
+        <button class="back-button" onclick="goBack()">← 前の画面に戻る</button>
+      </div>
+
+      <picture class="visual-wrap">
+        <source id="question-image-desktop-source" media="(min-width: 1200px)" srcset="">
+        <img id="question-image" class="question-image" alt="診断画像">
+      </picture>
+
     </div>
-
-<img id="question-image" class="question-image hidden" alt="診断画像">
-    <h1 id="question-title"></h1>
-    <p id="question-help" class="question-help"></p>
-    <div id="answer-area"></div>
-
-    <button class="back-button" onclick="goBack()">← 前の質問に戻る</button>
   </section>
 
   <section id="result-screen" class="card hidden">
