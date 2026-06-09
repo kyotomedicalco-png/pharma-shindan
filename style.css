@@ -1,340 +1,94 @@
-* {
-  box-sizing: border-box;
-}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>薬剤師市場価値診断</title>
+  <link rel="stylesheet" href="style.css">
 
-body {
-  margin: 0;
-  background: #f3f8f7;
-  font-family: "Helvetica Neue", Arial, sans-serif;
-  color: #243b3a;
-}
+  <meta property="og:title" content="PharmaSwitch 薬剤師市場価値診断">
+  <meta property="og:description" content="7つの質問であなたの市場価値がわかる">
+  <meta property="og:image" content="https://kyotomedicalco-png.github.io/pharma-shindan/main.png.png">
+  <meta property="og:url" content="https://kyotomedicalco-png.github.io/pharma-shindan/">
+  <meta property="og:type" content="website">
 
-.app {
-  width: 100%;
-  max-width: none;
-  min-height: 100vh;
-  margin: 0;
-  padding: 40px 24px;
-}
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://kyotomedicalco-png.github.io/pharma-shindan/main.png.png">
+</head>
 
-.hidden {
-  display: none;
-}
+<body>
+<div class="app">
 
-.hero-image {
-  width: 100%;
-  display: block;
-  border-radius: 20px;
-  box-shadow: 0 12px 30px rgba(0,0,0,.12);
-}
+  <header class="site-header">
+    <img src="images/pharmaswitch-logo.png" class="site-logo" alt="PharmaSwitch">
+    <p class="site-copy">3分で完了！薬剤師市場価値診断</p>
+  </header>
 
-.start-button {
-  width: 100%;
-  padding: 24px;
-  margin-top: 20px;
-  border: none;
-  border-radius: 18px;
-  background: #0f8f7f;
-  color: white;
-  font-size: 30px;
-  font-weight: bold;
-  cursor: pointer;
-}
+  <section id="start-screen" class="start-screen">
+    <img src="main.png.png" class="hero-image" alt="薬剤師市場価値診断">
+    <button class="start-button" onclick="startQuiz()">診断を始める</button>
+  </section>
 
-.card {
-  background: white;
-  border-radius: 24px;
-  padding: 36px;
-  box-shadow: 0 12px 30px rgba(0,0,0,.1);
-  overflow: hidden;
-  width: 100%;
-  max-width: none;
-  margin: 0;
-}
+  <section id="quiz-screen" class="quiz-card hidden">
+    <div class="quiz-layout">
 
-.progress-text {
-  font-size: 18px;
-  font-weight: bold;
-  color: #0f8f7f;
-}
+      <div class="quiz-content">
+        <div class="question-head">
+          <div class="question-badge" id="question-badge">Q1</div>
+          <div>
+            <h1 id="question-title"></h1>
+            <p id="question-help" class="question-help"></p>
+          </div>
+        </div>
 
-.progress-bar {
-  height: 12px;
-  background: #dcefeb;
-  border-radius: 999px;
-  overflow: hidden;
-  margin: 12px 0 26px;
-}
+        <div id="answer-area" class="answer-grid"></div>
 
-#progress-fill {
-  height: 100%;
-  width: 0%;
-  background: #0f8f7f;
-  transition: width .3s ease;
-}
+        <div class="progress-dots" id="progress-dots"></div>
 
-.question-image {
-  width: 100%;
-  max-width: 100%;
-  height: auto;
-  display: block;
-  border-radius: 16px;
-  margin: 0 0 18px;
-  box-shadow: 0 6px 16px rgba(0,0,0,.08);
-}
+        <button class="back-button" onclick="goBack()">← 前の画面に戻る</button>
+      </div>
 
-.question-image.hidden {
-  display: none;
-}
+      <picture class="visual-wrap">
+        <source id="question-image-desktop-source" media="(min-width: 1200px)" srcset="">
+        <img id="question-image" class="question-image" alt="診断画像">
+      </picture>
 
-#question-title {
-  font-size: 30px;
-  margin: 0 0 8px;
-  line-height: 1.5;
-}
+    </div>
+  </section>
 
-.question-help {
-  margin: 0 0 22px;
-  color: #667;
-  font-size: 16px;
-  line-height: 1.7;
-}
+  <section id="result-screen" class="card hidden">
+    <p class="result-title">あなたの市場価値</p>
 
-.answer-button {
-  width: 100%;
-  padding: 22px;
-  margin: 10px 0;
-  border-radius: 16px;
-  border: 2px solid #dce9e6;
-  background: white;
-  color: #243b3a;
-  font-size: 24px;
-  font-weight: bold;
-  cursor: pointer;
-  text-align: left;
-}
+    <div class="salary-box">
+      <p class="salary-label">想定年収</p>
+      <div id="salary" class="salary">計算中...</div>
+    </div>
 
-.answer-button:hover {
-  background: #0f8f7f;
-  color: white;
-}
+    <p id="comment" class="comment"></p>
 
-.back-button {
-  width: 100%;
-  padding: 18px;
-  margin-top: 20px;
-  border: none;
-  border-radius: 14px;
-  background: #e8f3f1;
-  color: #0f8f7f;
-  font-size: 20px;
-  font-weight: bold;
-  cursor: pointer;
-}
+    <div class="summary-box">
+      <p><span>エリア</span><strong id="summary-area"></strong></p>
+      <p><span>都道府県</span><strong id="summary-prefecture"></strong></p>
+      <p><span>役職</span><strong id="summary-position"></strong></p>
+    </div>
 
-.result-title {
-  color: #0f8f7f;
-  font-size: 24px;
-  font-weight: bold;
-  text-align: center;
-  margin: 0 0 28px;
-}
+    <div class="lead-box">
+      <h2>年収アップの可能性を確認しませんか？</h2>
+      <p>
+        京都医療コンシェルジュでは、薬剤師専門の担当者が
+        あなたの市場価値や年収アップの可能性を無料でご案内しています。
+      </p>
 
-.salary-box {
-  text-align: center;
-  margin: 0 auto 26px;
-  padding: 28px 18px;
-  background: #fff7f8;
-  border-radius: 20px;
-}
+      <a href="https://lin.ee/ojcWlsZ" target="_blank" class="line-button">
+        無料で年収相談する
+      </a>
 
-.salary-label {
-  font-size: 18px;
-  font-weight: bold;
-  margin: 0 0 8px;
-}
+      <button class="restart-button" onclick="restartQuiz()">もう一度診断する</button>
+    </div>
+  </section>
 
-.salary {
-  font-size: 52px;
-  font-weight: bold;
-  color: #ef7d8d;
-  line-height: 1.2;
-}
+</div>
 
-.comment {
-  text-align: center;
-  font-size: 20px;
-  line-height: 1.8;
-  margin: 0 0 26px;
-}
-
-.summary-box {
-  background: #ffffff;
-  border: 2px solid #e4f0ed;
-  border-radius: 18px;
-  padding: 18px;
-  margin-bottom: 28px;
-}
-
-.summary-box p {
-  display: flex;
-  justify-content: space-between;
-  gap: 14px;
-  margin: 10px 0;
-  font-size: 16px;
-}
-
-.summary-box span {
-  color: #6b7c7a;
-}
-
-.summary-box strong {
-  color: #243b3a;
-  text-align: right;
-}
-
-.lead-box {
-  background: #f3f8f7;
-  padding: 28px;
-  border-radius: 20px;
-  margin-top: 24px;
-}
-
-.lead-box h2 {
-  color: #0f8f7f;
-  font-size: 24px;
-  line-height: 1.5;
-  margin: 0 0 14px;
-}
-
-.lead-box p {
-  font-size: 16px;
-  line-height: 1.8;
-  margin: 0;
-}
-
-.line-button {
-  display: block;
-  width: 100%;
-  text-align: center;
-  background: #06C755;
-  color: white;
-  text-decoration: none;
-  padding: 20px;
-  border-radius: 16px;
-  font-size: 24px;
-  font-weight: bold;
-  margin-top: 24px;
-}
-
-.restart-button {
-  width: 100%;
-  padding: 16px;
-  margin-top: 14px;
-  border: none;
-  border-radius: 14px;
-  background: white;
-  color: #0f8f7f;
-  font-size: 18px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-@media(max-width: 600px) {
-  .app {
-    padding: 12px;
-  }
-
-  .card {
-    padding: 24px 18px;
-    border-radius: 20px;
-  }
-
-  .start-button {
-    font-size: 24px;
-    padding: 20px;
-  }
-
-  .question-image {
-    margin-bottom: 18px;
-    border-radius: 14px;
-  }
-
-  #question-title {
-    font-size: 24px;
-  }
-
-  .question-help {
-    font-size: 15px;
-  }
-
-  .answer-button {
-    font-size: 20px;
-    padding: 18px 16px;
-  }
-
-  .salary {
-    font-size: 38px;
-  }
-
-  .comment {
-    font-size: 17px;
-  }
-
-  .lead-box {
-    padding: 22px 18px;
-  }
-
-  .lead-box h2 {
-    font-size: 21px;
-  }
-
-  .line-button {
-    font-size: 21px;
-  }
-}
-
-@media (min-width: 1024px) {
-
-  #question-title {
-    font-size: 42px;
-  }
-
-  .question-help {
-    font-size: 22px;
-  }
-
-  .answer-button {
-    font-size: 32px;
-    padding: 28px;
-  }
-
-  .progress-text {
-    font-size: 24px;
-  }
-
-  .result-title {
-    font-size: 38px;
-  }
-
-  .salary {
-    font-size: 72px;
-  }
-
-  .comment {
-    font-size: 28px;
-  }
-
-  .lead-box h2 {
-    font-size: 32px;
-  }
-
-  .lead-box p {
-    font-size: 22px;
-  }
-
-  .line-button {
-    font-size: 30px;
-  }
-
-}
+<script src="script.js"></script>
+</body>
+</html>
